@@ -2,7 +2,8 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import authRouter from "./src/routes/auth.routes.js";
-import preferencesRouter from "./src/routes/preferences.routes.js";
+import userPreferencesRouter from "./src/routes/user-preferences.routes.js";
+
 const port = 3000;
 
 const app = express();
@@ -15,4 +16,4 @@ app.listen(port, () => {
 });
 
 app.use("/auth", authRouter);
-app.use("/preferences", preferencesRouter);
+app.use("/user-preferences", userPreferencesRouter);

@@ -1,10 +1,15 @@
 import openrouter from "../clients/openRouter.js";
 
-export async function generateAIInsight(typeOfInvestor, cryptoAssets) {
+export async function generateAIInsight(
+  typeOfInvestor,
+  cryptoAssets,
+  cryptoContent,
+) {
   try {
     const prompt = `Give a short crypto insight of the day for a ${typeOfInvestor}
-                    who had discovered interest in ${cryptoAssets}.
-                    Not the price, just a short advice in 2 sentences maximum.
+                    who had discovered interest in ${cryptoAssets} 
+                    with content type of ${cryptoContent} (so adapt the style of insight to that).
+                    Not the prices of the assets, just a short advice in 2 sentences maximum.
                     Don't give a line for each asset, make it flow naturally in the conversation.
                     Don't introduce the answer. Keep it short!.`;
     const stream = await openrouter.chat.send({
