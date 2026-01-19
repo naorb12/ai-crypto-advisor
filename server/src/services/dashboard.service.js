@@ -15,7 +15,7 @@ export async function getCoinPrices(cryptoAssets) {
     );
     const data = await response.json();
     return data;
-    // Result: { btc: { usd: 93196 }, eth: { usd: 3219.22 } }
+    // Result for exmple: { btc: { usd: 93196 }, eth: { usd: 3219.22 } }
   } catch (err) {
     console.log("Can't fetch crypto prices");
   }
