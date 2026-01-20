@@ -35,7 +35,12 @@ export async function getCryptoMeme() {
       subreddit: meme.subreddit,
     });
 
-    return meme;
+    return {
+      title: meme.title,
+      url: meme.url,
+      upvotes: meme.ups,
+      subreddit: meme.subreddit,
+    };
     // Result for example:
     // {
     // title: 'Banks, lawsuits and other cool stories',
@@ -45,6 +50,6 @@ export async function getCryptoMeme() {
     // }
   } catch (err) {
     console.log(err);
-    throw err;
+    // FALLBACK
   }
 }

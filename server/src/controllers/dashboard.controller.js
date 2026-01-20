@@ -13,6 +13,7 @@ export async function generateDashboard(req, res, next) {
     if (err.message === "Preferences don't exist") {
       return res.status(400).json({ error: err.message });
     }
-    res.status(500).json({ error: err });
+    console.error("Dashboard error:", err);
+    res.status(500).json({ error: "error generating dashboard" });
   }
 }

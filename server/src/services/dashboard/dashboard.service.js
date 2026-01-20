@@ -1,7 +1,7 @@
 import { getMarketNews } from "./news.service.js";
 import { getCoinPrices } from "./prices.service.js";
 import { generateAIInsight } from "./ai.service.js";
-import { getCryptoMeme } from "./memes.servcie.js";
+import { getCryptoMeme } from "./memes.service.js";
 
 export async function buildDashboard(userId) {
   try {
@@ -20,6 +20,8 @@ export async function buildDashboard(userId) {
       meme,
     };
   } catch (err) {
+    console.log(err);
+
     throw err;
   }
 }

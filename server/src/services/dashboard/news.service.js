@@ -11,8 +11,6 @@ export async function getMarketNews(userId) {
 
     const cryptoAssets = user_preferences.assets;
     const interests = user_preferences.interests;
-    console.log(cryptoAssets);
-    console.log(interests);
 
     const response = await fetch(
       `https://cryptopanic.com/api/developer/v2/posts/?auth_token=${process.env.CRYPTO_PANIC_API_KEY}&public=true&currencies=${cryptoAssets.join(",")}`,
@@ -24,10 +22,11 @@ export async function getMarketNews(userId) {
 
     const data = await response.json();
     const result = getNewByInterests(data, interests);
-    console.log(data.results);
-    console.log("NOW THE FILTERED!");
+    return result;
+    // console.log(data.results);
+    // console.log("NOW THE FILTERED!");
 
-    console.log(result);
+    // console.log(result);
   } catch (err) {
     console.log(err);
 

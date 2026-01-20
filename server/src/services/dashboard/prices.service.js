@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { getPreferencesFromDB } from "../user-preferences.service.js";
 
 export async function getCoinPrices(userId) {
   try {
@@ -16,6 +17,7 @@ export async function getCoinPrices(userId) {
       method: "GET",
       headers: { "x-cg-demo-api-key": process.env.COIN_GECKO_API_KEY },
     };
+
     const response = await fetch(
       `https://api.coingecko.com/api/v3/simple/price?vs_currencies=usd&symbols=${symbols}`,
       options,
@@ -25,6 +27,6 @@ export async function getCoinPrices(userId) {
     // Result for exmple: { btc: { usd: 93196 }, eth: { usd: 3219.22 } }
   } catch (err) {
     console.log("Can't fetch crypto prices");
-    throw err;
+    // FALLBACK
   }
 }

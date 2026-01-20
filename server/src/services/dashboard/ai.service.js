@@ -1,4 +1,5 @@
 import openrouter from "../../clients/openRouter.js";
+import { getPreferencesFromDB } from "../user-preferences.service.js";
 
 export async function generateAIInsight(userId) {
   try {
@@ -14,7 +15,7 @@ export async function generateAIInsight(userId) {
 
     const prompt = `Give a short crypto insight of the day for a ${typeOfInvestor}
                     who had discovered interest in ${cryptoAssets} 
-                    with content type of ${cryptoContent} (so adapt the style of insight to that).
+                    with content type of ${interests} (so adapt the style of insight to that).
                     Not the prices of the assets, just a short advice in 2 sentences maximum.
                     Don't give a line for each asset, make it flow naturally in the conversation.
                     Don't introduce the answer. Keep it short!.`;
@@ -42,6 +43,6 @@ export async function generateAIInsight(userId) {
     return result.trim();
   } catch (err) {
     console.log(err);
-    throw err;
+    // FALLBACK
   }
 }
