@@ -1,4 +1,4 @@
-import openrouter from "../clients/openRouter.js";
+import openrouter from "../../clients/openRouter.js";
 
 export async function generateAIInsight(
   typeOfInvestor,

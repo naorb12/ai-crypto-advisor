@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import authRouter from "./src/routes/auth.routes.js";
 import userPreferencesRouter from "./src/routes/user-preferences.routes.js";
+import { getMarketNews } from "./src/services/dashboard/news.service.js";
 
 const port = 3000;
 
