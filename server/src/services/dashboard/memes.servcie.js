@@ -45,5 +45,6 @@ export async function getCryptoMeme() {
     // }
   } catch (err) {
     console.log(err);
+    throw err;
   }
 }

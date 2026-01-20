@@ -1,11 +1,17 @@
 import openrouter from "../../clients/openRouter.js";
 
-export async function generateAIInsight(
-  typeOfInvestor,
-  cryptoAssets,
-  cryptoContent,
-) {
+export async function generateAIInsight(userId) {
   try {
+    const user_preferences = await getPreferencesFromDB(userId);
+
+    if (!user_preferences) {
+      throw new Error("Preferences don't exist");
+    }
+
+    const typeOfInvestor = user_preferences.type_of_onvestor;
+    const cryptoAssets = user_preferences.assets;
+    const interests = user_preferences.interests;
+
     const prompt = `Give a short crypto insight of the day for a ${typeOfInvestor}
                     who had discovered interest in ${cryptoAssets} 
                     with content type of ${cryptoContent} (so adapt the style of insight to that).
@@ -36,5 +42,6 @@ export async function generateAIInsight(
     return result.trim();
   } catch (err) {
     console.log(err);
+    throw err;
   }
 }
