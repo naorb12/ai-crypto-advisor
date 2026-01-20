@@ -4,14 +4,18 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import AuthPage from "./pages/AuthPage";
+import UserPreferencesPage from "./pages/UserPreferencesPage";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <>
-      <AuthPage />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AuthPage />} />
+        <Route path="/user-preferences" element={<UserPreferencesPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
