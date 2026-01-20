@@ -5,13 +5,36 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 export default function SignUpForm({ onSignUp }) {
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [errorLabel, setErrorLabel] = useState("");
 
-  async function handleSignUp(params) {}
+  async function handleSignUp() {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER}/auth/signup`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email,
+            name: name,
+            password: password,
+          }),
+        },
+      );
+      if (response.ok) {
+        onSignUp(false);
+      } else if (response.status === 409) {
+        setErrorLabel("User with this email already exists.");
+      } else if (response.status === 400) {
+        setErrorLabel("User details are missing");
+      } else {
+        setErrorLabel("Error occured");
+      }
+    } catch (err) {}
+  }
   return (
     <Stack id="sign-in-stack" spacing={1}>
       <h2>Please Sign In:</h2>

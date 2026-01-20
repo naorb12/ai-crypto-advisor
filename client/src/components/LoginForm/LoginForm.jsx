@@ -12,18 +12,24 @@ export default function LoginForm({ onSignUp }) {
 
   async function handleLogin() {
     try {
-      const response = await fetch("http://localhost:3000/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email, password: password }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER}/auth/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email, password: password }),
+        },
+      );
       if (response.status === 200) {
         const { token } = await response.json();
         sessionStorage.setItem("token", token);
-        sessionStorage.setItem("userName", userName);
         navigate("/user-preferences");
+      } else if (response.status === 400) {
+        setErrorLabel("Email doesn't exist in our systems.");
       } else if (response.status === 401) {
-        setErrorLabel("User or Password don't match");
+        setErrorLabel("Password incorrect.");
+      } else {
+        setErrorLabel("Error occured");
       }
     } catch (err) {
       console.log("Couldn't sign in, ", err);
