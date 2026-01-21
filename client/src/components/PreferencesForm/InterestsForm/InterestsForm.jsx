@@ -1,32 +1,26 @@
 import { Stack, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
 
-export default function CryptoAssetsForm({ cryptoAssets, setCryptoAssets }) {
-  const contentOptions = [
-    "BTC (Bitcoin)",
-    "ETH (Etherium)",
-    "SOL (Solana)",
-    "BNB (Binance Coin)",
-    "ADA (Cardano)",
-  ];
+export default function InterestsForm({ interests, setInterests }) {
+  const contentOptions = ["Market News", "Charts", "Social", "Fun"];
 
   const handleToggle = (option) => {
-    if (cryptoAssets.includes(option)) {
-      setCryptoAssets(cryptoAssets.filter((item) => item !== option));
+    if (interests.includes(option)) {
+      setInterests(interests.filter((item) => item !== option));
     } else {
-      setCryptoAssets([...cryptoAssets, option]);
+      setInterests([...interests, option]);
     }
   };
 
   return (
     <Stack spacing={2} sx={{ p: 3 }}>
-      <h2>Select Your Crypto Assets</h2>
+      <h2>What Content Interests You?</h2>
       <FormGroup>
         {contentOptions.map((option) => (
           <FormControlLabel
             key={option}
             control={
               <Checkbox
-                checked={cryptoAssets.includes(option)}
+                checked={interests.includes(option)}
                 onChange={() => handleToggle(option)}
               />
             }

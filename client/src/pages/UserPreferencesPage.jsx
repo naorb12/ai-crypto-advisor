@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import ProgressStepper from "../components/ProgressStepper/ProgressSteper";
+import CryptoAssetsForm from "../components/PreferencesForm/CryptoAssetsForm/CryptoAssetsForm";
+import InterestsForm from "../components/PreferencesForm/InterestsForm/InterestsForm";
+import TypeInvestorForm from "../components/PreferencesForm/TypeInvestorForm/TypeInvestorForm";
 
 export default function UserPreferencesPage() {
   const navigate = useNavigate();
+  const [activeStep, setActiveStep] = useState(0);
+
   const [cryptoAssets, setCryptoAssets] = useState([]);
   const [investorType, setInvestorType] = useState([]);
   const [interests, setInterests] = useState([]);
@@ -32,5 +38,35 @@ export default function UserPreferencesPage() {
     }
   }
 
-  return <></>;
+  const renderStep = () => {
+    switch (activeStep) {
+      case 0:
+        return (
+          <CryptoAssetsForm
+            cryptoAssets={cryptoAssets}
+            setCryptoAssets={setCryptoAssets}
+          />
+        );
+      case 1:
+        return (
+          <TypeInvestorForm
+            investorType={investorType}
+            setInvestorType={setInvestorType}
+          />
+        );
+      case 2:
+        return (
+          <InterestsForm interests={interests} setInterests={setInterests} />
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <>
+      {renderStep()}
+      <ProgressStepper activeStep={activeStep} setActiveStep={setActiveStep} />
+    </>
+  );
 }
