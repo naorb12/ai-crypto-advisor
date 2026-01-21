@@ -10,7 +10,7 @@ export default function Dashboard() {
   const [marketNews, setMarketNews] = useState([]);
   const [coinPrices, setCoinPrices] = useState();
   const [aiInsight, setAiInsight] = useState("");
-  const [memeURL, setMemeURL] = useState("");
+  const [memeURL, setMemeURL] = useState(null);
   const token = sessionStorage.getItem("token");
 
   useEffect(() => {
@@ -88,7 +88,11 @@ export default function Dashboard() {
       <section className="section section-4">
         <h2>Fun Meme</h2>
         <div className="content">
-          <img className="meme" src={memeURL} alt="crypto-meme" />
+          {memeURL ? (
+            <img className="meme" src={memeURL} alt="crypto-meme" />
+          ) : (
+            <p>loading meme...</p>
+          )}
         </div>
         <Feedback />
       </section>

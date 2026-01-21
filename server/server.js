@@ -12,6 +12,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static("public"));
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
@@ -20,5 +21,3 @@ app.listen(port, () => {
 app.use("/auth", authRouter);
 app.use("/user-preferences", userPreferencesRouter);
 app.use("/dashboard", dashboardRouter);
-
-// getMarketNews("6b2f2529-4532-4bd5-bba3-22f8af6367f8");

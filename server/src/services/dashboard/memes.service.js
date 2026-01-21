@@ -50,6 +50,11 @@ export async function getCryptoMeme() {
     // }
   } catch (err) {
     console.log(err);
-    return "https://i.redd.it/lj4y5wbh5idg1.jpeg";
+    return {
+      title: "Default Crypto Meme",
+      url: `${process.env.SERVER_URL || "http://localhost:3000"}/def-crypto-meme.png`,
+      upvotes: 0,
+      subreddit: "default",
+    };
   }
 }
