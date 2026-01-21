@@ -35,11 +35,12 @@ export async function logIn(req, res, next) {
         .json({ error: "User with this email doesn't exist" });
     }
     const onboardingCompleted = users.rows[0].onboarding_completed;
+    const name = users.rows[0].name;
     const token = await verifyUserPassword(email, password);
     if (!token) {
       return res.status(401).json({ error: "Password incorrect." });
     }
-    res.status(200).json({ token, onboardingCompleted });
+    res.status(200).json({ token, name, onboardingCompleted });
   } catch (err) {
     res.status(500).json({ error: "Can't log in" });
   }

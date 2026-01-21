@@ -6,6 +6,8 @@ export default function Header() {
   const navigate = useNavigate();
   function handleLogout() {
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("name");
+    sessionStorage.removeItem("onboardingCompleted");
     navigate("/");
   }
   return (

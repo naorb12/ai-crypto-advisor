@@ -10,10 +10,11 @@ export default function CryptoAssetsForm({ cryptoAssets, setCryptoAssets }) {
   ];
 
   const handleToggle = (option) => {
-    if (cryptoAssets.includes(option)) {
-      setCryptoAssets(cryptoAssets.filter((item) => item !== option));
+    const symbol = option.split(" ")[0];
+    if (cryptoAssets.includes(symbol)) {
+      setCryptoAssets(cryptoAssets.filter((item) => item !== symbol));
     } else {
-      setCryptoAssets([...cryptoAssets, option]);
+      setCryptoAssets([...cryptoAssets, symbol]);
     }
   };
 
@@ -26,7 +27,7 @@ export default function CryptoAssetsForm({ cryptoAssets, setCryptoAssets }) {
             key={option}
             control={
               <Checkbox
-                checked={cryptoAssets.includes(option)}
+                checked={cryptoAssets.includes(option.split(" ")[0])}
                 onChange={() => handleToggle(option)}
               />
             }

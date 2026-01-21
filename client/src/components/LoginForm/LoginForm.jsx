@@ -23,9 +23,11 @@ export default function LoginForm({ onSignUp }) {
         },
       );
       if (response.status === 200) {
-        const { token, onboardingCompleted } = await response.json();
+        const { token, name, onboardingCompleted } = await response.json();
         console.log(onboardingCompleted);
         sessionStorage.setItem("token", token);
+        sessionStorage.setItem("name", name);
+        sessionStorage.setItem("onboardingCompleted", onboardingCompleted);
         if (!onboardingCompleted) {
           navigate("/user-preferences");
         } else {

@@ -25,15 +25,17 @@ export async function insertPreferences(
 ) {
   try {
     const result = await pool.query(
-      "INSERT INTO user_preferences (user_id, type_of_investor, assets, interests) VALUES ($1, $2, $3, $4) RETURNING *"[
-        (userId, typeOfInvestor, assets, interests)
-      ],
+      "INSERT INTO user_preferences (user_id, type_of_investor, assets, interests) VALUES ($1, $2, $3, $4) RETURNING *",
+      [userId, typeOfInvestor, assets, interests],
     );
 
     if (result.rows.length <= 0) {
       throw new Error("Couldn't insert preferences");
     }
-
+    await pool.query(
+      "UPDATE users SET onboarding_completed = true WHERE id = $1",
+      [userId],
+    );
     return result.rows[0];
   } catch (err) {
     throw err;
