@@ -10,7 +10,7 @@ export default function Dashboard() {
   const [marketNews, setMarketNews] = useState([]);
   const [coinPrices, setCoinPrices] = useState();
   const [aiInsight, setAiInsight] = useState("");
-  const [memeURL, setMemeURL] = useState("/def-crypto-meme.png");
+  const [memeURL, setMemeURL] = useState("");
   const token = sessionStorage.getItem("token");
 
   useEffect(() => {
@@ -42,6 +42,7 @@ export default function Dashboard() {
           setMarketNews(newsArticles);
           setCoinPrices(coinPrices);
           setAiInsight(aiInsight);
+          console.log(meme.url);
           setMemeURL(meme.url);
         }
       } catch (err) {
