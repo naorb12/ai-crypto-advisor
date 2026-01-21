@@ -6,6 +6,7 @@ import "./App.css";
 import AuthPage from "./pages/AuthPage";
 import UserPreferencesPage from "./pages/UserPreferencesPage";
 import Header from "./components/Header/Header";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<AuthPage />} />
         <Route path="/user-preferences" element={<UserPreferencesPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );

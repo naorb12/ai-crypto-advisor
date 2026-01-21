@@ -12,10 +12,12 @@ export default function Header() {
   }
   return (
     <>
-      {isLoggedIn() ? (
-        <Link onClick={handleLogout}>Logout</Link>
-      ) : (
-        <label>Hello</label>
+      {isLoggedIn() && (
+        <label>
+          Hello {sessionStorage.getItem("name")}
+          {"! "}
+          <Link onClick={handleLogout}>Logout</Link>
+        </label>
       )}
     </>
   );

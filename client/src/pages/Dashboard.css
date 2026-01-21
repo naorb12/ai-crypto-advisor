@@ -1,0 +1,16 @@
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-width: 800px;
+}
+
+.section {
+  flex: 1;
+  min-width: 600px;
+  width: 100%;
+  min-height: 250px;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
