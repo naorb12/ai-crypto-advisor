@@ -1,0 +1,33 @@
+.market-news {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.news-article {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.news-article:last-child {
+  border-bottom: none;
+}
+
+.news-article h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.news-article p {
+  margin: 0 0 0.5rem 0;
+  color: #666;
+}
+
+.news-article a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.news-article a:hover {
+  text-decoration: underline;
+}
