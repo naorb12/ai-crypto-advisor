@@ -1,0 +1,20 @@
+import { useNavigate } from "react-router";
+import { isLoggedIn } from "../../utils/auth";
+import Link from "@mui/material/Link";
+
+export default function Header() {
+  const navigate = useNavigate();
+  function handleLogout() {
+    sessionStorage.removeItem("token");
+    navigate("/");
+  }
+  return (
+    <>
+      {isLoggedIn() ? (
+        <Link onClick={handleLogout}>Logout</Link>
+      ) : (
+        <label>Hello</label>
+      )}
+    </>
+  );
+}

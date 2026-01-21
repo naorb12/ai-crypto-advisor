@@ -26,7 +26,7 @@ export default function LoginForm({ onSignUp }) {
         const { token, onboardingCompleted } = await response.json();
         console.log(onboardingCompleted);
         sessionStorage.setItem("token", token);
-        if (onboardingCompleted) {
+        if (!onboardingCompleted) {
           navigate("/user-preferences");
         } else {
           navigate("/dashboard");
