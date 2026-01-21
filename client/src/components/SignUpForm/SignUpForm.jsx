@@ -13,6 +13,7 @@ export default function SignUpForm({ onSignUp }) {
 
   const deatilsNotFull = email === "" || name === "" || password === "";
 
+  // TODO: make it login as well!
   async function handleSignUp() {
     setLoading(true);
     setErrorLabel("");

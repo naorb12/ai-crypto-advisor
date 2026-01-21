@@ -12,6 +12,7 @@ const steps = [
   "Select Your Desired Content",
 ];
 
+// TODO: Get the Back/Next buttons to be at the bottom of the page!
 export default function ProgressStepper({
   activeStep,
   setActiveStep,
