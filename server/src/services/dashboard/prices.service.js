@@ -27,6 +27,6 @@ export async function getCoinPrices(userId) {
     // Result for exmple: { btc: { usd: 93196 }, eth: { usd: 3219.22 } }
   } catch (err) {
     console.log("Can't fetch crypto prices");
-    // FALLBACK
+    // TODO: FALLBACK
   }
 }

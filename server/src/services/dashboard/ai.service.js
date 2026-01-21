@@ -43,6 +43,6 @@ export async function generateAIInsight(userId) {
     return result.trim();
   } catch (err) {
     console.log(err);
-    // FALLBACK
+    // TODO: FALLBACK
   }
 }

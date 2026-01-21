@@ -26,9 +26,10 @@ export async function createUser(email, name, password) {
 
 export async function findUserByEmail(email) {
   try {
-    const user = await pool.query("SELECT id FROM users WHERE email = $1", [
-      email,
-    ]);
+    const user = await pool.query(
+      "SELECT id, onboarding_completed FROM users WHERE email = $1",
+      [email],
+    );
     return user;
   } catch (err) {
     throw err;

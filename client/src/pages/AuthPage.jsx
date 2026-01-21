@@ -4,7 +4,7 @@ import SignUpForm from "../components/SignUpForm/SignUpForm";
 
 export default function AuthPage() {
   const [signUp, setSignUp] = useState(false);
-  // If loggedin -> redirect to dashboard
+  // TODO: If loggedin -> redirect to dashboard
   return (
     <>
       {!signUp ? (

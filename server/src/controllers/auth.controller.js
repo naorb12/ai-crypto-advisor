@@ -1,4 +1,3 @@
-import jwt from "jsonwebtoken";
 import {
   createUser,
   findUserByEmail,
@@ -35,12 +34,12 @@ export async function logIn(req, res, next) {
         .status(400)
         .json({ error: "User with this email doesn't exist" });
     }
-
+    const onboardingCompleted = users.rows[0].onboarding_completed;
     const token = await verifyUserPassword(email, password);
     if (!token) {
-      res.status(401).json({ error: "Password incorrect." });
+      return res.status(401).json({ error: "Password incorrect." });
     }
-    res.status(200).json(token);
+    res.status(200).json({ token, onboardingCompleted });
   } catch (err) {
     res.status(500).json({ error: "Can't log in" });
   }

@@ -30,7 +30,7 @@ export async function getMarketNews(userId) {
   } catch (err) {
     console.log(err);
 
-    // FALLBACK STATIC NEWS
+    // TODO: FALLBACK STATIC NEWS
   }
 }
 

@@ -10,6 +10,8 @@ export default function SignUpForm({ onSignUp }) {
   const [password, setPassword] = useState("");
   const [errorLabel, setErrorLabel] = useState("");
 
+  const deatilsNotFull = email === "" || name === "" || password === "";
+
   async function handleSignUp() {
     try {
       const response = await fetch(
@@ -59,7 +61,12 @@ export default function SignUpForm({ onSignUp }) {
         variant="outlined"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button variant="contained" color="success" onClick={handleSignUp}>
+      <Button
+        disabled={deatilsNotFull}
+        variant="contained"
+        color="success"
+        onClick={handleSignUp}
+      >
         Sign Up
       </Button>
       <label style={{ color: "red" }}>{errorLabel}</label>

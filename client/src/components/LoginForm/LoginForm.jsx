@@ -10,6 +10,8 @@ export default function LoginForm({ onSignUp }) {
   const [password, setPassword] = useState("");
   const [errorLabel, setErrorLabel] = useState("");
 
+  const deatilsNotFull = email === "" || password === "";
+
   async function handleLogin() {
     try {
       const response = await fetch(
@@ -21,9 +23,14 @@ export default function LoginForm({ onSignUp }) {
         },
       );
       if (response.status === 200) {
-        const { token } = await response.json();
+        const { token, onboardingCompleted } = await response.json();
+        console.log(onboardingCompleted);
         sessionStorage.setItem("token", token);
-        navigate("/user-preferences");
+        if (onboardingCompleted) {
+          navigate("/user-preferences");
+        } else {
+          navigate("/dashboard");
+        }
       } else if (response.status === 400) {
         setErrorLabel("Email doesn't exist in our systems.");
       } else if (response.status === 401) {
@@ -52,7 +59,12 @@ export default function LoginForm({ onSignUp }) {
         variant="outlined"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button variant="contained" color="success" onClick={handleLogin}>
+      <Button
+        disabled={deatilsNotFull}
+        variant="contained"
+        color="success"
+        onClick={handleLogin}
+      >
         Login
       </Button>
       <label style={{ color: "red" }}>{errorLabel}</label>

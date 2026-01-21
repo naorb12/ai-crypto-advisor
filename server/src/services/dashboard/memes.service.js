@@ -50,6 +50,6 @@ export async function getCryptoMeme() {
     // }
   } catch (err) {
     console.log(err);
-    // FALLBACK
+    // TODO: FALLBACK
   }
 }
