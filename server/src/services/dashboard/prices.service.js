@@ -23,7 +23,7 @@ export async function getCoinPrices(userId) {
       options,
     );
     const data = await response.json();
-    // TODO: make it return live API result
+    // TODO: make it return live API resultא
     return { btc: { usd: 93196 }, eth: { usd: 3219.22 } };
     // Result for exmple: { btc: { usd: 93196 }, eth: { usd: 3219.22 } }
   } catch (err) {
