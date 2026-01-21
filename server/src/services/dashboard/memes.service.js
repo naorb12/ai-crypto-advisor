@@ -3,7 +3,7 @@ import "dotenv/config";
 export async function getCryptoMeme() {
   try {
     const res = await fetch(
-      "https://www.reddit.com/r/cryptocurrencymemes/hot.json?limit=30",
+      "https://www.reddit.com/r/cryptocurrencymemes/hot.json?limit=50",
       {
         headers: {
           "User-Agent":
