@@ -45,7 +45,7 @@ export default function LoginForm({ onSignUp }) {
     }
   }
   return (
-    <Stack id="sign-in-stack" spacing={1}>
+    <Stack id="auth-stack" spacing={1}>
       <h2>Please Login:</h2>
       <TextField
         value={email}

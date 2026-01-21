@@ -38,8 +38,8 @@ export default function SignUpForm({ onSignUp }) {
     } catch (err) {}
   }
   return (
-    <Stack id="sign-in-stack" spacing={1}>
-      <h2>Please Sign In:</h2>
+    <Stack id="auth-stack" spacing={1}>
+      <h2>Please Sign Up:</h2>
       <TextField
         value={email}
         id="outlined-basic"

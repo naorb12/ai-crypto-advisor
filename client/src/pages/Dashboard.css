@@ -17,6 +17,37 @@
   flex-direction: column;
 }
 
+.section-2 .content {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.coin-price {
+  background: rgb(57, 55, 70);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  min-width: 100px;
+  text-align: center;
+}
+
+.coin-symbol {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.coin-value {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
 .feedback {
   margin-top: auto;
 }

@@ -4,6 +4,7 @@ import LoginForm from "../components/LoginForm/LoginForm";
 import SignUpForm from "../components/SignUpForm/SignUpForm";
 import { isLoggedIn } from "../utils/auth";
 import { useEffect } from "react";
+import "./AuthPage.css";
 
 export default function AuthPage() {
   const navigate = useNavigate();
@@ -16,12 +17,12 @@ export default function AuthPage() {
     }
   });
   return (
-    <>
+    <div id="auth-page">
       {!signUp ? (
         <LoginForm onSignUp={setSignUp} />
       ) : (
         <SignUpForm onSignUp={setSignUp} />
       )}
-    </>
+    </div>
   );
 }
