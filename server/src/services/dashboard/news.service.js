@@ -1,5 +1,11 @@
 import "dotenv/config";
+import { readFileSync } from "fs";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
 import { getPreferencesFromDB } from "../user-preferences.service.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export async function getMarketNews(userId) {
   try {
@@ -23,14 +29,12 @@ export async function getMarketNews(userId) {
     const data = await response.json();
     const result = getNewByInterests(data, interests);
     return result;
-    // console.log(data.results);
-    // console.log("NOW THE FILTERED!");
-
-    // console.log(result);
   } catch (err) {
     console.log(err);
 
-    // TODO: FALLBACK STATIC NEWS
+    const fallbackNewsPath = join(__dirname, "fallback-news.json");
+    const fallbackNews = JSON.parse(readFileSync(fallbackNewsPath, "utf-8"));
+    return fallbackNews;
   }
 }
 

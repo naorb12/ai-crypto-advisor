@@ -28,27 +28,12 @@ export async function getCryptoMeme() {
 
     const meme = posts[Math.floor(Math.random() * posts.length)];
 
-    console.log("MEME:");
-    console.log({
-      title: meme.title,
-      url: meme.url,
-      upvotes: meme.ups,
-      subreddit: meme.subreddit,
-    });
-
     return {
       title: meme.title,
       url: meme.url,
       upvotes: meme.ups,
       subreddit: meme.subreddit,
     };
-    // Result for example:
-    // {
-    // title: 'Banks, lawsuits and other cool stories',
-    // url: 'https://i.redd.it/lj4y5wbh5idg1.jpeg',
-    // upvotes: 92,
-    // subreddit: 'cryptocurrencymemes'
-    // }
   } catch (err) {
     console.log(err);
     return {

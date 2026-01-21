@@ -23,11 +23,17 @@ export async function getCoinPrices(userId) {
       options,
     );
     const data = await response.json();
-    // TODO: make it return live API resultא
-    return { btc: { usd: 93196 }, eth: { usd: 3219.22 } };
-    // Result for exmple: { btc: { usd: 93196 }, eth: { usd: 3219.22 } }
+    console.log(data);
+    
+    return data;
   } catch (err) {
     console.log("Can't fetch crypto prices");
-    return { btc: { usd: 93196 }, eth: { usd: 3219.22 } };
+    return {
+      btc: { usd: 89878 },
+      eth: { usd: 3016.23 },
+      bnb: { usd: 887.84 },
+      sol: { usd: 130.64 },
+      ada: { usd: 0.368077 }
+    };
   }
 }

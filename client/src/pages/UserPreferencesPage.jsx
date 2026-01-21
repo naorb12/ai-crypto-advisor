@@ -13,19 +13,19 @@ export default function UserPreferencesPage() {
   const [investorType, setInvestorType] = useState("");
   const [interests, setInterests] = useState([]);
 
-  // useEffect(() => {
-  //   if (!isLoggedIn()) {
-  //     navigate("/");
-  //     return;
-  //   }
-  //   if (
-  //     isLoggedIn() &&
-  //     sessionStorage.getItem("onboardingCompleted") === "true"
-  //   ) {
-  //     console.log("logged in ");
-  //     navigate("/dashboard");
-  //   } 
-  // });
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      navigate("/");
+      return;
+    }
+    if (
+      isLoggedIn() &&
+      sessionStorage.getItem("onboardingCompleted") === "true"
+    ) {
+      console.log("logged in ");
+      navigate("/dashboard");
+    } 
+  });
 
   function canProceed() {
     switch (activeStep) {

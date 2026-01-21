@@ -1,28 +1,53 @@
 .dashboard {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  min-width: 800px;
+  display: grid;
+  grid-template-areas:
+    "news news prices"
+    "news news prices"
+    "ai-insight ai-insight meme";
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 1.2rem;
+}
+
+.section h2 {
+  margin: 0 0 0.6rem 0;
 }
 
 .section {
-  flex: 1;
-  min-width: 600px;
-  width: 100%;
-  min-height: 250px;
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  min-height: 250px;
+  max-height: 300px;
+  overflow: auto;
+}
+.section-1 {
+  grid-area: news;
+}
+
+.section-2 {
+  grid-area: prices;
+}
+
+.section-3 {
+  grid-area: ai-insight;
+  max-height: 400px;
+}
+
+.section-3 .content{
+  overflow: auto;
+  text-align: left;
 }
 
 .section-2 .content {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1.2fr);
   gap: 1rem;
+  justify-items: center;
+  width: 75%;
+  margin: 0 auto;
 }
 
 .coin-price {
@@ -30,20 +55,19 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 1rem;
-  min-width: 100px;
+  width: 90px;
   text-align: center;
 }
-
 .coin-symbol {
   display: block;
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #878383;
+  margin-bottom: 0.1rem;
 }
 
 .coin-value {
   display: block;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   color: #ffffff;
 }
@@ -52,7 +76,16 @@
   margin-top: auto;
 }
 
+.section-4 {
+  grid-area: meme;
+  max-height: 400px;
+}
+
+.section-4 .content {
+  overflow: auto;
+}
+
 .meme {
-  max-width: 100%;
-  max-height: 300px;
+  max-width: 250px;
+  max-height: 250px;
 }

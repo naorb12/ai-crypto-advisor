@@ -4,6 +4,8 @@ import { useNavigate } from "react-router";
 import "./Dashboard.css";
 import MarketNews from "../components/MarketNews/MarketNews";
 import Feedback from "../components/Feedback/Feedback";
+import { CircularProgress } from "@mui/material";
+import Box from "@mui/material/Box";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
@@ -88,7 +90,14 @@ export default function DashboardPage() {
                 );
               })
             ) : (
-              <p>Loading coin prices...</p>
+              <Box sx={{ gridColumn: '1 / -1', 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center',
+                width: '100%'
+              }}>
+                <CircularProgress />
+              </Box>
             )}
           </div>
           {coinPrices && (
@@ -109,7 +118,9 @@ export default function DashboardPage() {
               section={"ai"}
               snapshot={aiInsight}
             />
-          ) : <p>Loading AI insight...</p>}
+          ) : <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <CircularProgress />
+              </Box>}
         </section>
 
         <section className="section section-4">
@@ -121,7 +132,9 @@ export default function DashboardPage() {
                 <img className="meme" src={meme.url} alt="crypto-meme" />
               </>
             ) : (
-              <p>loading meme...</p>
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <CircularProgress />
+              </Box>
             )}
           </div>
           {meme && (
@@ -132,63 +145,3 @@ export default function DashboardPage() {
     </>
   );
 }
-
-// TODO: Caching:
-// useEffect(() => {
-//   async function fetchDashboard() {
-//     if (!isLoggedIn()) {
-//       navigate("/");
-//       return;
-//     }
-//     if (sessionStorage.getItem("onboardingCompleted") === "false") {
-//       console.log("logged in ");
-//       navigate("/user-preferences");
-//       return;
-//     }
-
-//     // Load cached data first
-//     const cached = localStorage.getItem("dashboardData");
-//     if (cached) {
-//       const { newsArticles, coinPrices, aiInsight, meme } = JSON.parse(cached);
-//       setMarketNews(newsArticles || []);
-//       setCoinPrices(coinPrices);
-//       setAiInsight(aiInsight || "");
-//       if (meme?.url) setMemeURL(meme.url);
-//     }
-
-//     try {
-//       console.log("About to fetch dashboard");
-//       const response = await fetch(
-//         `${import.meta.env.VITE_SERVER}/dashboard`,
-//         {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${token}`,
-//           },
-//         },
-//       );
-
-//       console.log(response);
-
-//       if (response.ok) {
-//         const data = await response.json();
-//         const { newsArticles, coinPrices, aiInsight, meme } = data;
-//         console.log(newsArticles);
-//         console.log(meme);
-
-//         setMarketNews(newsArticles);
-//         setCoinPrices(coinPrices);
-//         setAiInsight(aiInsight);
-//         if (meme?.url) setMemeURL(meme.url);
-
-//         // Cache the data
-//         localStorage.setItem("dashboardData", JSON.stringify(data));
-//       }
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   }
-
-//   fetchDashboard();
-// }, []);
