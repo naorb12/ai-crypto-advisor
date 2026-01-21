@@ -50,6 +50,6 @@ export async function getCryptoMeme() {
     // }
   } catch (err) {
     console.log(err);
-    // TODO: FALLBACK
+    return "https://i.redd.it/lj4y5wbh5idg1.jpeg";
   }
 }

@@ -1,4 +1,4 @@
-import openrouter from "../../clients/openRouter.js";
+import openrouter from "../../clients/openrouter.js";
 import { getPreferencesFromDB } from "../user-preferences.service.js";
 
 export async function generateAIInsight(userId) {
@@ -19,30 +19,32 @@ export async function generateAIInsight(userId) {
                     Not the prices of the assets, just a short advice in 2 sentences maximum.
                     Don't give a line for each asset, make it flow naturally in the conversation.
                     Don't introduce the answer. Keep it short!.`;
-    const stream = await openrouter.chat.send({
-      model: "google/gemma-3-27b-it:free",
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      maxTokens: 90,
-      stream: true,
-    });
+    // TODO: AI API hit limit!!!
+    // const stream = await openrouter.chat.send({
+    //   model: "google/gemma-3-27b-it:free",
+    //   messages: [
+    //     {
+    //       role: "user",
+    //       content: prompt,
+    //     },
+    //   ],
+    //   maxTokens: 90,
+    //   stream: true,
+    // });
 
-    let result = "";
+    // let result = "";
 
-    for await (const chunk of stream) {
-      const content = chunk.choices[0]?.delta?.content;
-      if (content) {
-        result += content;
-      }
-    }
+    // for await (const chunk of stream) {
+    //   const content = chunk.choices[0]?.delta?.content;
+    //   if (content) {
+    //     result += content;
+    //   }
+    // }
 
-    return result.trim();
+    // return result.trim();
+    return "Some advice";
   } catch (err) {
     console.log(err);
-    // TODO: FALLBACK
+    return "Markets reward patience more than prediction. In crypto, managing risk and position size matters far more than catching the perfect entry. Strong projects survive noise; hype doesn’t.";
   }
 }

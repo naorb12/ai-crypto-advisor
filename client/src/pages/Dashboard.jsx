@@ -3,6 +3,7 @@ import { isLoggedIn } from "../utils/auth";
 import { useNavigate } from "react-router";
 import "./Dashboard.css";
 import MarketNews from "../components/MarketNews/MarketNews";
+import Feedback from "../components/Feedback/Feedback";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -58,6 +59,7 @@ export default function Dashboard() {
         <div className="content">
           <MarketNews articles={marketNews} />
         </div>
+        <Feedback />
       </section>
 
       <section className="section section-2">
@@ -73,11 +75,13 @@ export default function Dashboard() {
               );
             })}
         </div>
+        <Feedback />
       </section>
 
       <section className="section section-3">
         <h2>AI Insight of The Day!</h2>
         <div className="content">{aiInsight}</div>
+        <Feedback />
       </section>
 
       <section className="section section-4">
@@ -85,6 +89,7 @@ export default function Dashboard() {
         <div className="content">
           <img className="meme" src={memeURL} alt="crypto-meme" />
         </div>
+        <Feedback />
       </section>
     </div>
   );
