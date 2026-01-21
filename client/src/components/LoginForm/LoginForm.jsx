@@ -54,22 +54,30 @@ export default function LoginForm({ onSignUp }) {
     <Stack id="auth-stack" spacing={1}>
       <h2>Please Login:</h2>
       <TextField
-        value={email}
-        id="outlined-basic"
-        label="Email"
-        variant="outlined"
-        onChange={(e) => setEmail(e.target.value)}
-        sx={{ '& .MuiInputBase-root': { fontSize: '1rem' } }}
+          value={email}
+          id="outlined-basic"
+          label="Email"
+          variant="outlined"
+          onChange={(e) => setEmail(e.target.value)}
+          sx={{ 
+            '& .MuiInputBase-root': { fontSize: '1rem' },
+            '& .MuiInputLabel-root': { color: 'rgba(209, 209, 209, 0.87)' },
+            '& .MuiInputLabel-root.Mui-focused': { color: 'rgba(209, 209, 209, 0.87)' }
+        }}
       />
-      <TextField
-        value={password}
-        id="outlined-basic"
-        label="Password"
-        variant="outlined"
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-        sx={{ '& .MuiInputBase-root': { fontSize: '1rem' } }}
-      />
+    <TextField
+      value={password}
+      id="outlined-basic"
+      label="Password"
+      variant="outlined"
+      type="password"
+      onChange={(e) => setPassword(e.target.value)}
+      sx={{ 
+        '& .MuiInputBase-root': { fontSize: '1rem' },
+        '& .MuiInputLabel-root': { color: 'rgba(209, 209, 209, 0.87)' },
+        '& .MuiInputLabel-root.Mui-focused': { color: 'rgba(209, 209, 209, 0.87)' }
+      }}
+    />
       <Button
         disabled={deatilsNotFull || loading}
         variant="contained"
@@ -79,7 +87,10 @@ export default function LoginForm({ onSignUp }) {
           '&:hover': { backgroundColor: '#1565c0' },
           textTransform: 'none',
           fontSize: '1rem',
-          '&:focus': { outline: 'none' }
+          '&:focus': { outline: 'none' },
+          '&.Mui-disabled': { 
+            color: 'rgba(209, 209, 209, 0.87)' 
+          }
         }}
       >
         {loading ? "Logging in..." : "Login"}

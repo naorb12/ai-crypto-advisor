@@ -54,7 +54,11 @@ export default function SignUpForm({ onSignUp }) {
         label="Email"
         variant="outlined"
         onChange={(e) => setEmail(e.target.value)}
-        sx={{ '& .MuiInputBase-root': { fontSize: '1rem' } }}
+        sx={{ 
+          '& .MuiInputBase-root': { fontSize: '1rem' },
+          '& .MuiInputLabel-root': { color: 'rgba(209, 209, 209, 0.87)' },
+          '& .MuiInputLabel-root.Mui-focused': { color: 'rgba(209, 209, 209, 0.87)' }
+        }}
       />
       <TextField
         value={name}
@@ -62,7 +66,11 @@ export default function SignUpForm({ onSignUp }) {
         label="Name"
         variant="outlined"
         onChange={(e) => setName(e.target.value)}
-        sx={{ '& .MuiInputBase-root': { fontSize: '1rem' } }}
+        sx={{ 
+          '& .MuiInputBase-root': { fontSize: '1rem' },
+          '& .MuiInputLabel-root': { color: 'rgba(209, 209, 209, 0.87)' },
+          '& .MuiInputLabel-root.Mui-focused': { color: 'rgba(209, 209, 209, 0.87)' }
+        }}
       />
       <TextField
         value={password}
@@ -71,7 +79,11 @@ export default function SignUpForm({ onSignUp }) {
         variant="outlined"
         type="password"
         onChange={(e) => setPassword(e.target.value)}
-        sx={{ '& .MuiInputBase-root': { fontSize: '1rem' } }}
+        sx={{ 
+          '& .MuiInputBase-root': { fontSize: '1rem' },
+          '& .MuiInputLabel-root': { color: 'rgba(209, 209, 209, 0.87)' },
+          '& .MuiInputLabel-root.Mui-focused': { color: 'rgba(209, 209, 209, 0.87)' }
+        }}
       />
       <Button
         disabled={deatilsNotFull || loading}
@@ -82,7 +94,10 @@ export default function SignUpForm({ onSignUp }) {
           '&:hover': { backgroundColor: '#1565c0' },
           textTransform: 'none',
           fontSize: '1rem',
-          '&:focus': { outline: 'none' }
+          '&:focus': { outline: 'none' },
+          '&.Mui-disabled': { 
+            color: 'rgba(209, 209, 209, 0.87)' 
+          }
         }}
       >
         {loading ? "Signing up..." : "Sign Up"}
