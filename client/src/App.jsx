@@ -1,12 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+
 import "./App.css";
 import AuthPage from "./pages/AuthPage";
 import UserPreferencesPage from "./pages/UserPreferencesPage";
 import Header from "./components/Header/Header";
-import Dashboard from "./pages/Dashboard";
+import DashboardPage from "./pages/DashboardPage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -17,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<AuthPage />} />
         <Route path="/user-preferences" element={<UserPreferencesPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>
     </BrowserRouter>
   );

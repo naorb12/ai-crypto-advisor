@@ -4,7 +4,7 @@ import cors from "cors";
 import authRouter from "./src/routes/auth.routes.js";
 import userPreferencesRouter from "./src/routes/user-preferences.routes.js";
 import dashboardRouter from "./src/routes/dashboard.routes.js";
-import { getMarketNews } from "./src/services/dashboard/news.service.js";
+import feedbackRouter from "./src/routes/feedback.routes.js";
 
 const port = 3000;
 
@@ -21,3 +21,4 @@ app.listen(port, () => {
 app.use("/auth", authRouter);
 app.use("/user-preferences", userPreferencesRouter);
 app.use("/dashboard", dashboardRouter);
+app.use("/feedback", feedbackRouter);

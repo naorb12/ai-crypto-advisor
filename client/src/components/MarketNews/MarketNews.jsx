@@ -1,10 +1,6 @@
 import "./MarketNews.css";
 
 export default function MarketNews({ articles }) {
-  if (!articles || articles.length === 0) {
-    return <p>No news available</p>;
-  }
-
   return (articles && articles.length) !== 0 ? (
     <div className="market-news">
       {articles.map((article, index) => (
@@ -20,6 +16,6 @@ export default function MarketNews({ articles }) {
       ))}
     </div>
   ) : (
-    <p>No news available</p>
+    <p>Loading news...</p>
   );
 }

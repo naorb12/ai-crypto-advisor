@@ -5,12 +5,12 @@ import "./Dashboard.css";
 import MarketNews from "../components/MarketNews/MarketNews";
 import Feedback from "../components/Feedback/Feedback";
 
-export default function Dashboard() {
+export default function DashboardPage() {
   const navigate = useNavigate();
   const [marketNews, setMarketNews] = useState([]);
   const [coinPrices, setCoinPrices] = useState();
-  const [aiInsight, setAiInsight] = useState("");
-  const [memeURL, setMemeURL] = useState(null);
+  const [aiInsight, setAiInsight] = useState();
+  const [meme, setMeme] = useState(null);
   const token = sessionStorage.getItem("token");
 
   useEffect(() => {
@@ -37,13 +37,16 @@ export default function Dashboard() {
         );
 
         if (response.ok) {
-          const { newsArticles, coinPrices, aiInsight, meme } =
-            await response.json();
+          const {
+            newsArticles,
+            coinPrices: coinPricesFetched,
+            aiInsight: aiInsightFetched,
+            meme: memeFetched,
+          } = await response.json();
           setMarketNews(newsArticles);
-          setCoinPrices(coinPrices);
-          setAiInsight(aiInsight);
-          console.log(meme.url);
-          setMemeURL(meme.url);
+          setCoinPrices(coinPricesFetched);
+          setAiInsight(aiInsightFetched);
+          setMeme(memeFetched);
         }
       } catch (err) {
         console.log(err);
@@ -54,49 +57,76 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="dashboard">
-      <section className="section section-1">
-        <h2>Market News</h2>
-        <div className="content">
-          <MarketNews articles={marketNews} />
-        </div>
-        <Feedback />
-      </section>
-
-      <section className="section section-2">
-        <h2>Coin Prices</h2>
-        <div className="content">
-          {coinPrices &&
-            Object.entries(coinPrices).map(([symbol, data]) => {
-              return (
-                <div key={symbol} className="coin-price">
-                  <span className="coin-symbol">{symbol.toUpperCase()}</span>
-                  <span className="coin-value">${data.usd}</span>
-                </div>
-              );
-            })}
-        </div>
-        <Feedback />
-      </section>
-
-      <section className="section section-3">
-        <h2>AI Insight of The Day!</h2>
-        <div className="content">{aiInsight}</div>
-        <Feedback />
-      </section>
-
-      <section className="section section-4">
-        <h2>Fun Meme</h2>
-        <div className="content">
-          {memeURL ? (
-            <img className="meme" src={memeURL} alt="crypto-meme" />
-          ) : (
-            <p>loading meme...</p>
+    <>
+      {" "}
+      <h1>Wecome To Your Dashboard!</h1>
+      <div className="dashboard">
+        <section className="section section-1">
+          <h2>Market News</h2>
+          <div className="content">
+            <MarketNews articles={marketNews} />
+          </div>
+          {marketNews.length > 0 && (
+            <Feedback
+              className="feedback"
+              section={"news"}
+              snapshot={marketNews}
+            />
           )}
-        </div>
-        <Feedback />
-      </section>
-    </div>
+        </section>
+
+        <section className="section section-2">
+          <h2>Coin Prices</h2>
+          <div className="content">
+            {coinPrices &&
+              Object.entries(coinPrices).map(([symbol, data]) => {
+                return (
+                  <div key={symbol} className="coin-price">
+                    <span className="coin-symbol">{symbol.toUpperCase()}</span>
+                    <span className="coin-value">${data.usd}</span>
+                  </div>
+                );
+              })}
+          </div>
+          {coinPrices && (
+            <Feedback
+              className="feedback"
+              section={"coins"}
+              snapshot={coinPrices}
+            />
+          )}
+        </section>
+
+        <section className="section section-3">
+          <h2>AI Insight of The Day!</h2>
+          <div className="content">{aiInsight}</div>
+          {aiInsight && (
+            <Feedback
+              className="feedback"
+              section={"ai"}
+              snapshot={aiInsight}
+            />
+          )}
+        </section>
+
+        <section className="section section-4">
+          <h2>Fun Meme</h2>
+          <div className="content">
+            {meme ? (
+              <>
+                <p>{meme.title}</p>
+                <img className="meme" src={meme.url} alt="crypto-meme" />
+              </>
+            ) : (
+              <p>loading meme...</p>
+            )}
+          </div>
+          {meme && (
+            <Feedback className="feedback" section={"meme"} snapshot={meme} />
+          )}
+        </section>
+      </div>
+    </>
   );
 }
 
