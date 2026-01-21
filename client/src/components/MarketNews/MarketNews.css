@@ -36,10 +36,22 @@
   font-size: inherit;
   text-decoration: none;
   display: inline;
+  outline: none;
+
 }
 
 .read-more-btn:hover {
   text-decoration: underline;
+}
+
+.read-more-btn:focus {
+  outline: none;
+  border: none;
+}
+
+.read-more-btn:active {
+  outline: none;
+  border: none;
 }
 
 .news-article a {

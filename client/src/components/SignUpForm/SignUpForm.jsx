@@ -3,8 +3,10 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import { loginUser } from "../../utils/auth";
 
 export default function SignUpForm({ onSignUp }) {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +15,6 @@ export default function SignUpForm({ onSignUp }) {
 
   const deatilsNotFull = email === "" || name === "" || password === "";
 
-  // TODO: make it login as well!
   async function handleSignUp() {
     setLoading(true);
     setErrorLabel("");
@@ -31,17 +32,27 @@ export default function SignUpForm({ onSignUp }) {
         },
       );
       if (response.ok) {
-        onSignUp(false);
+        // After successful signup, automatically login
+        const loginResult = await loginUser(email, password, setErrorLabel, setLoading);
+        if (loginResult.success) {
+          if (!loginResult.onboardingCompleted) {
+            navigate("/user-preferences");
+          } else {
+            navigate("/dashboard");
+          }
+        }
       } else if (response.status === 409) {
         setErrorLabel("User with this email already exists.");
+        setLoading(false);
       } else if (response.status === 400) {
         setErrorLabel("User details are missing");
+        setLoading(false);
       } else {
         setErrorLabel("Error occured");
+        setLoading(false);
       }
     } catch (err) {
       setErrorLabel("Connection error");
-    } finally {
       setLoading(false);
     }
   }
@@ -56,6 +67,7 @@ export default function SignUpForm({ onSignUp }) {
         onChange={(e) => setEmail(e.target.value)}
         sx={{ 
           '& .MuiInputBase-root': { fontSize: '1rem' },
+          '& .MuiInputBase-input': { color: 'rgba(209, 209, 209, 0.87)' },
           '& .MuiInputLabel-root': { color: 'rgba(209, 209, 209, 0.87)' },
           '& .MuiInputLabel-root.Mui-focused': { color: 'rgba(209, 209, 209, 0.87)' }
         }}
@@ -68,6 +80,7 @@ export default function SignUpForm({ onSignUp }) {
         onChange={(e) => setName(e.target.value)}
         sx={{ 
           '& .MuiInputBase-root': { fontSize: '1rem' },
+          '& .MuiInputBase-input': { color: 'rgba(209, 209, 209, 0.87)' },
           '& .MuiInputLabel-root': { color: 'rgba(209, 209, 209, 0.87)' },
           '& .MuiInputLabel-root.Mui-focused': { color: 'rgba(209, 209, 209, 0.87)' }
         }}
@@ -81,6 +94,7 @@ export default function SignUpForm({ onSignUp }) {
         onChange={(e) => setPassword(e.target.value)}
         sx={{ 
           '& .MuiInputBase-root': { fontSize: '1rem' },
+          '& .MuiInputBase-input': { color: 'rgba(209, 209, 209, 0.87)' },
           '& .MuiInputLabel-root': { color: 'rgba(209, 209, 209, 0.87)' },
           '& .MuiInputLabel-root.Mui-focused': { color: 'rgba(209, 209, 209, 0.87)' }
         }}

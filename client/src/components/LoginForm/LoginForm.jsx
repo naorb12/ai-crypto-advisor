@@ -3,6 +3,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import { loginUser } from "../../utils/auth";
 
 export default function LoginForm({ onSignUp }) {
   const navigate = useNavigate();
@@ -14,40 +15,13 @@ export default function LoginForm({ onSignUp }) {
   const deatilsNotFull = email === "" || password === "";
 
   async function handleLogin() {
-    setLoading(true);
-    setErrorLabel("");
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SERVER}/auth/login`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: email, password: password }),
-        },
-      );
-      if (response.status === 200) {
-        const { token, name, onboardingCompleted } = await response.json();
-        console.log(onboardingCompleted);
-        sessionStorage.setItem("token", token);
-        sessionStorage.setItem("name", name);
-        sessionStorage.setItem("onboardingCompleted", onboardingCompleted);
-        if (!onboardingCompleted) {
-          navigate("/user-preferences");
-        } else {
-          navigate("/dashboard");
-        }
-      } else if (response.status === 400) {
-        setErrorLabel("Email doesn't exist in our systems.");
-      } else if (response.status === 401) {
-        setErrorLabel("Password incorrect.");
+    const result = await loginUser(email, password, setErrorLabel, setLoading);
+    if (result.success) {
+      if (!result.onboardingCompleted) {
+        navigate("/user-preferences");
       } else {
-        setErrorLabel("Error occured");
+        navigate("/dashboard");
       }
-    } catch (err) {
-      console.log("Couldn't sign in, ", err);
-      setErrorLabel("Connection error");
-    } finally {
-      setLoading(false);
     }
   }
   return (
@@ -61,6 +35,7 @@ export default function LoginForm({ onSignUp }) {
           onChange={(e) => setEmail(e.target.value)}
           sx={{ 
             '& .MuiInputBase-root': { fontSize: '1rem' },
+            '& .MuiInputBase-input': { color: 'rgba(209, 209, 209, 0.87)' },
             '& .MuiInputLabel-root': { color: 'rgba(209, 209, 209, 0.87)' },
             '& .MuiInputLabel-root.Mui-focused': { color: 'rgba(209, 209, 209, 0.87)' }
         }}
@@ -74,6 +49,7 @@ export default function LoginForm({ onSignUp }) {
       onChange={(e) => setPassword(e.target.value)}
       sx={{ 
         '& .MuiInputBase-root': { fontSize: '1rem' },
+        '& .MuiInputBase-input': { color: 'rgba(209, 209, 209, 0.87)' },
         '& .MuiInputLabel-root': { color: 'rgba(209, 209, 209, 0.87)' },
         '& .MuiInputLabel-root.Mui-focused': { color: 'rgba(209, 209, 209, 0.87)' }
       }}

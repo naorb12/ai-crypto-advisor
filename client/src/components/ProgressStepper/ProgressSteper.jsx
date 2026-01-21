@@ -43,6 +43,12 @@ export default function ProgressStepper({
                     color: 'rgba(209, 209, 209, 0.87)',
                     fontWeight: 'bold',
                     fontFamily: 'Arial, sans-serif',
+                  },
+                  '& .MuiStepLabel-label.Mui-active': {
+                    color: 'rgba(209, 209, 209, 0.87)',
+                  },
+                  '& .MuiStepLabel-label.Mui-completed': {
+                    color: 'rgba(209, 209, 209, 0.87)',
                   }
                 }}
               >
