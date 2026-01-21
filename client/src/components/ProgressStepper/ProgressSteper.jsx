@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 const steps = [
   "Select Crypto Assets",
   "What Type of Investor Are You?",
-  "Select Your Desired Contenet",
+  "Select Your Desired Content",
 ];
 
 export default function ProgressStepper({
@@ -31,12 +31,22 @@ export default function ProgressStepper({
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "60%", margin: "0 auto" }}>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           return (
             <Step key={label}>
-              <StepLabel>{label}</StepLabel>
+              <StepLabel 
+                sx={{ 
+                  '& .MuiStepLabel-label': { 
+                    color: 'rgba(209, 209, 209, 0.87)',
+                    fontWeight: 'bold',
+                    fontFamily: 'Arial, sans-serif',
+                  }
+                }}
+              >
+                {label}
+              </StepLabel>
             </Step>
           );
         })}
@@ -47,12 +57,21 @@ export default function ProgressStepper({
             color="inherit"
             disabled={activeStep === 0}
             onClick={handleBack}
-            sx={{ mr: 1 }}
+            sx={{ 
+              mr: 1,
+              '&.Mui-disabled': { color: 'gray' }
+            }}
           >
             Back
           </Button>
           <Box sx={{ flex: "1 1 auto" }} />
-          <Button onClick={handleNext} disabled={!canProceed()}>
+          <Button 
+            onClick={handleNext} 
+            disabled={!canProceed()}
+            sx={{
+              '&.Mui-disabled': { color: 'gray' }
+            }}
+          >
             {activeStep === steps.length - 1 ? "Finish" : "Next"}
           </Button>
         </Box>

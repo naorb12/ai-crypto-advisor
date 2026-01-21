@@ -10,7 +10,6 @@ import {
 export default function TypeInvestorForm({ investorType, setInvestorType }) {
   return (
     <Stack spacing={2} sx={{ p: 3 }}>
-      <h2>What Type of Investor Are You?</h2>
       <FormControl>
         <RadioGroup
           value={investorType}

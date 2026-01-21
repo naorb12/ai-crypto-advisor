@@ -78,7 +78,7 @@ export default function DashboardPage() {
         <section className="section section-2">
           <h2>Coin Prices</h2>
           <div className="content">
-            {coinPrices &&
+            {coinPrices ? (
               Object.entries(coinPrices).map(([symbol, data]) => {
                 return (
                   <div key={symbol} className="coin-price">
@@ -86,7 +86,10 @@ export default function DashboardPage() {
                     <span className="coin-value">${data.usd}</span>
                   </div>
                 );
-              })}
+              })
+            ) : (
+              <p>Loading coin prices...</p>
+            )}
           </div>
           {coinPrices && (
             <Feedback
@@ -100,13 +103,13 @@ export default function DashboardPage() {
         <section className="section section-3">
           <h2>AI Insight of The Day!</h2>
           <div className="content">{aiInsight}</div>
-          {aiInsight && (
+          {aiInsight ? (
             <Feedback
               className="feedback"
               section={"ai"}
               snapshot={aiInsight}
             />
-          )}
+          ) : <p>Loading AI insight...</p>}
         </section>
 
         <section className="section section-4">

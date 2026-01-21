@@ -13,15 +13,19 @@ export default function UserPreferencesPage() {
   const [investorType, setInvestorType] = useState("");
   const [interests, setInterests] = useState([]);
 
-  useEffect(() => {
-    if (
-      isLoggedIn() &&
-      sessionStorage.getItem("onboardingCompleted") === "true"
-    ) {
-      console.log("logged in ");
-      navigate("/dashboard");
-    }
-  });
+  // useEffect(() => {
+  //   if (!isLoggedIn()) {
+  //     navigate("/");
+  //     return;
+  //   }
+  //   if (
+  //     isLoggedIn() &&
+  //     sessionStorage.getItem("onboardingCompleted") === "true"
+  //   ) {
+  //     console.log("logged in ");
+  //     navigate("/dashboard");
+  //   } 
+  // });
 
   function canProceed() {
     switch (activeStep) {
@@ -92,13 +96,20 @@ export default function UserPreferencesPage() {
 
   return (
     <>
-      {renderStep()}
       <ProgressStepper
         activeStep={activeStep}
         setActiveStep={setActiveStep}
         onFinish={handleSubmit}
         canProceed={canProceed}
       />
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        padding: '1rem'
+      }}>
+          {renderStep()}
+      </div>
     </>
   );
 }

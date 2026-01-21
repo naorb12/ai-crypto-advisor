@@ -13,7 +13,6 @@ export default function InterestsForm({ interests, setInterests }) {
 
   return (
     <Stack spacing={2} sx={{ p: 3 }}>
-      <h2>What Content Interests You?</h2>
       <FormGroup>
         {contentOptions.map((option) => (
           <FormControlLabel

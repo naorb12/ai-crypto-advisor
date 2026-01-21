@@ -19,8 +19,8 @@ export default function CryptoAssetsForm({ cryptoAssets, setCryptoAssets }) {
   };
 
   return (
+    
     <Stack spacing={2} sx={{ p: 3 }}>
-      <h2>Select Your Crypto Assets</h2>
       <FormGroup>
         {contentOptions.map((option) => (
           <FormControlLabel
