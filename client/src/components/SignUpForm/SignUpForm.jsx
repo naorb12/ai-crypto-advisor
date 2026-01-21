@@ -9,10 +9,13 @@ export default function SignUpForm({ onSignUp }) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [errorLabel, setErrorLabel] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const deatilsNotFull = email === "" || name === "" || password === "";
 
   async function handleSignUp() {
+    setLoading(true);
+    setErrorLabel("");
     try {
       const response = await fetch(
         `${import.meta.env.VITE_SERVER}/auth/signup`,
@@ -35,7 +38,11 @@ export default function SignUpForm({ onSignUp }) {
       } else {
         setErrorLabel("Error occured");
       }
-    } catch (err) {}
+    } catch (err) {
+      setErrorLabel("Connection error");
+    } finally {
+      setLoading(false);
+    }
   }
   return (
     <Stack id="auth-stack" spacing={1}>
@@ -46,6 +53,7 @@ export default function SignUpForm({ onSignUp }) {
         label="Email"
         variant="outlined"
         onChange={(e) => setEmail(e.target.value)}
+        sx={{ '& .MuiInputBase-root': { fontSize: '1rem' } }}
       />
       <TextField
         value={name}
@@ -53,21 +61,30 @@ export default function SignUpForm({ onSignUp }) {
         label="Name"
         variant="outlined"
         onChange={(e) => setName(e.target.value)}
+        sx={{ '& .MuiInputBase-root': { fontSize: '1rem' } }}
       />
       <TextField
         value={password}
         id="outlined-basic"
         label="Password"
         variant="outlined"
+        type="password"
         onChange={(e) => setPassword(e.target.value)}
+        sx={{ '& .MuiInputBase-root': { fontSize: '1rem' } }}
       />
       <Button
-        disabled={deatilsNotFull}
+        disabled={deatilsNotFull || loading}
         variant="contained"
-        color="success"
         onClick={handleSignUp}
+        sx={{ 
+          backgroundColor: '#1976d2', 
+          '&:hover': { backgroundColor: '#1565c0' },
+          textTransform: 'none',
+          fontSize: '1rem',
+          '&:focus': { outline: 'none' }
+        }}
       >
-        Sign Up
+        {loading ? "Signing up..." : "Sign Up"}
       </Button>
       <label style={{ color: "red" }}>{errorLabel}</label>
       <Link onClick={() => onSignUp(false)}>Login!</Link>

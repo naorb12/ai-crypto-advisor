@@ -9,10 +9,13 @@ export default function LoginForm({ onSignUp }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorLabel, setErrorLabel] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const deatilsNotFull = email === "" || password === "";
 
   async function handleLogin() {
+    setLoading(true);
+    setErrorLabel("");
     try {
       const response = await fetch(
         `${import.meta.env.VITE_SERVER}/auth/login`,
@@ -42,6 +45,9 @@ export default function LoginForm({ onSignUp }) {
       }
     } catch (err) {
       console.log("Couldn't sign in, ", err);
+      setErrorLabel("Connection error");
+    } finally {
+      setLoading(false);
     }
   }
   return (
@@ -53,21 +59,30 @@ export default function LoginForm({ onSignUp }) {
         label="Email"
         variant="outlined"
         onChange={(e) => setEmail(e.target.value)}
+        sx={{ '& .MuiInputBase-root': { fontSize: '1rem' } }}
       />
       <TextField
         value={password}
         id="outlined-basic"
         label="Password"
         variant="outlined"
+        type="password"
         onChange={(e) => setPassword(e.target.value)}
+        sx={{ '& .MuiInputBase-root': { fontSize: '1rem' } }}
       />
       <Button
-        disabled={deatilsNotFull}
+        disabled={deatilsNotFull || loading}
         variant="contained"
-        color="success"
         onClick={handleLogin}
+        sx={{ 
+          backgroundColor: '#1976d2', 
+          '&:hover': { backgroundColor: '#1565c0' },
+          textTransform: 'none',
+          fontSize: '1rem',
+          '&:focus': { outline: 'none' }
+        }}
       >
-        Login
+        {loading ? "Logging in..." : "Login"}
       </Button>
       <label style={{ color: "red" }}>{errorLabel}</label>
       <label>
