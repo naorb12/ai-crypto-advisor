@@ -3,27 +3,16 @@ import "dotenv/config";
 export async function getCryptoMeme() {
   try {
     const res = await fetch(
-      "https://www.reddit.com/r/cryptocurrencymemes/hot.json?limit=50",
-      {
-        headers: {
-          "User-Agent":
-            process.env.REDDIT_USER_AGENT ||
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-        },
-      },
+      "https://meme-api.com/gimme/cryptocurrencymemes/50",
     );
-
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}`);
     }
     const json = await res.json();
 
-    const posts = json.data.children
-      .map((c) => c.data)
-      .filter((p) => p.post_hint === "image" && !p.over_18);
+    const posts = json.memes.filter((m) => !m.nsfw);
 
     if (!posts.length) {
-      console.log("No meme found");
       return null;
     }
 
