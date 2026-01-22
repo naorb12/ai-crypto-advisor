@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { auth } from "../middleware/auth.js";
 import {
-  generateDashboard,
   getNews,
   getPrices,
   getAIInsight,
@@ -10,7 +9,6 @@ import {
 
 const router = new Router();
 
-router.get("/", auth, generateDashboard);
 router.get("/news", auth, getNews);
 router.get("/prices", auth, getPrices);
 router.get("/ai-insight", auth, getAIInsight);

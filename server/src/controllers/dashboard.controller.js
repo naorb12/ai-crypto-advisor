@@ -1,26 +1,7 @@
-import { buildDashboard } from "../services/dashboard/dashboard.service.js";
 import { getMarketNews } from "../services/dashboard/news.service.js";
 import { getCoinPrices } from "../services/dashboard/prices.service.js";
 import { generateAIInsight } from "../services/dashboard/ai.service.js";
 import { getCryptoMeme } from "../services/dashboard/memes.service.js";
-
-export async function generateDashboard(req, res) {
-  try {
-    const userId = req.user.id;
-    if (!userId) {
-      return res.status(400).json({ error: "No user id" });
-    }
-
-    const dashboard = await buildDashboard(userId);
-    res.status(200).json(dashboard);
-  } catch (err) {
-    if (err.message === "Preferences don't exist") {
-      return res.status(400).json({ error: err.message });
-    }
-    console.error("Dashboard error:", err);
-    res.status(500).json({ error: "error generating dashboard" });
-  }
-}
 
 export async function getNews(req, res) {
   try {
