@@ -8,7 +8,7 @@ export async function generateDashboard(req, res, next) {
     }
 
     const dashboard = await buildDashboard(userId);
-    res.status(201).json(dashboard);
+    res.status(200).json(dashboard);
   } catch (err) {
     if (err.message === "Preferences don't exist") {
       return res.status(400).json({ error: err.message });

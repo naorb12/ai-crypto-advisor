@@ -4,5 +4,5 @@ import { generateDashboard } from "../controllers/dashboard.controller.js";
 
 const router = new Router();
 
-router.post("/", auth, generateDashboard);
+router.get("/", auth, generateDashboard);
 export default router;

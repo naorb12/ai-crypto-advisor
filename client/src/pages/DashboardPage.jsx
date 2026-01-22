@@ -9,7 +9,7 @@ import Meme from "../components/Meme/Meme";
 import Feedback from "../components/Feedback/Feedback";
 import { CircularProgress } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import AutorenewIcon from '@mui/icons-material/Autorenew';
+import AutorenewIcon from "@mui/icons-material/Autorenew";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
@@ -31,16 +31,13 @@ export default function DashboardPage() {
       return;
     }
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SERVER}/dashboard`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await fetch(`${import.meta.env.VITE_SERVER}/dashboard`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       if (response.ok) {
         const {
@@ -72,27 +69,32 @@ export default function DashboardPage() {
 
   return (
     <>
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
-        padding: '0 2rem',
-        marginBottom: '1rem'
-      }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "0 2rem",
+          marginBottom: "1rem",
+        }}
+      >
         <h1>Welcome To Your Dashboard!</h1>
-        <IconButton 
-          onClick={handleRefresh} 
+        <IconButton
+          onClick={handleRefresh}
           disabled={refreshing}
-          sx={{ color: 'rgba(209, 209, 209, 0.87)' }}
+          sx={{ color: "rgba(209, 209, 209, 0.87)" }}
         >
           {refreshing ? (
-            <CircularProgress size={24} sx={{ color: 'rgba(209, 209, 209, 0.87)' }} />
+            <CircularProgress
+              size={24}
+              sx={{ color: "rgba(209, 209, 209, 0.87)" }}
+            />
           ) : (
-            <AutorenewIcon fontSize="large"/>
+            <AutorenewIcon fontSize="large" />
           )}
         </IconButton>
       </div>
-      
+
       <div className="dashboard">
         <section className="section section-1">
           <h2>Market News</h2>
