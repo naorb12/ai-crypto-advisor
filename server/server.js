@@ -23,5 +23,3 @@ app.use("/auth", authRouter);
 app.use("/user-preferences", userPreferencesRouter);
 app.use("/dashboard", dashboardRouter);
 app.use("/feedback", feedbackRouter);
-
-console.log(await getCryptoMeme());
