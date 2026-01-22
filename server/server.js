@@ -5,7 +5,6 @@ import authRouter from "./src/routes/auth.routes.js";
 import userPreferencesRouter from "./src/routes/user-preferences.routes.js";
 import dashboardRouter from "./src/routes/dashboard.routes.js";
 import feedbackRouter from "./src/routes/feedback.routes.js";
-import { getCryptoMeme } from "./src/services/dashboard/memes.service.js";
 
 const port = 3000;
 
