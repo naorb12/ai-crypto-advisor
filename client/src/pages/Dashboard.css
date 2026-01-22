@@ -36,7 +36,7 @@
   max-height: 400px;
 }
 
-.section-3 .content{
+.section-3 .content {
   overflow: auto;
   text-align: left;
 }
@@ -88,4 +88,43 @@
 .meme {
   max-width: 250px;
   max-height: 250px;
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-areas:
+      "news"
+      "prices"
+      "ai-insight"
+      "meme";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .section {
+    min-height: 200px;
+    max-height: none;
+  }
+
+  .section-2 .content {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+
+  .section-3,
+  .section-4 {
+    max-height: none;
+  }
+
+  .meme {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Adjust header spacing on mobile */
+  h1 {
+    font-size: 1.5rem;
+  }
 }
