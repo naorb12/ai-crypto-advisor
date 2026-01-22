@@ -62,7 +62,6 @@ The following dependencies must be installed:
    JWT_SECRET=your-super-secret-jwt-key
    OPENROUTER_API_KEY=your-openrouter-api-key
    NEWS_API_KEY=your-news-api-key (optional)
-   REDDIT_USER_AGENT=
    COIN_GECKO_API_KEY=
    CRYPTO_PANIC_API_KEY=
    ```
