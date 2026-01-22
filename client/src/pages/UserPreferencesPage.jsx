@@ -1,10 +1,20 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import ProgressStepper from "../components/ProgressStepper/ProgressSteper";
 import CryptoAssetsForm from "../components/PreferencesForm/CryptoAssetsForm/CryptoAssetsForm";
 import InterestsForm from "../components/PreferencesForm/InterestsForm/InterestsForm";
 import TypeInvestorForm from "../components/PreferencesForm/TypeInvestorForm/TypeInvestorForm";
 import { isLoggedIn } from "../utils/auth";
+
+
+const steps = [
+  "Select Crypto Assets",
+  "What Type of Investor Are You?",
+  "Select Your Desired Content",
+];
+
 
 export default function UserPreferencesPage() {
   const navigate = useNavigate();
@@ -94,22 +104,59 @@ export default function UserPreferencesPage() {
     }
   };
 
+  const handleNext = () => {
+    if (activeStep === steps.length - 1) {
+      handleSubmit();
+    } else {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
   return (
-    <>
-      <ProgressStepper
-        activeStep={activeStep}
-        setActiveStep={setActiveStep}
-        onFinish={handleSubmit}
-        canProceed={canProceed}
-      />
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '50vh' }}>
+      <ProgressStepper activeStep={activeStep} />
+      
       <div style={{ 
         display: 'flex', 
         justifyContent: 'center', 
         alignItems: 'center',
+        flex: 1,
         padding: '1rem'
       }}>
-          {renderStep()}
+        {renderStep()}
       </div>
-    </>
+
+      <Box sx={{ 
+        display: "flex", 
+        flexDirection: "row", 
+        justifyContent: "center",
+        padding: '2rem',
+        gap: '1rem'
+      }}>
+        <Button
+          color="inherit"
+          disabled={activeStep === 0}
+          onClick={handleBack}
+          sx={{ 
+            '&.Mui-disabled': { color: 'gray' }
+          }}
+        >
+          Back
+        </Button>
+        <Button 
+          onClick={handleNext} 
+          disabled={!canProceed()}
+          sx={{
+            '&.Mui-disabled': { color: 'gray' }
+          }}
+        >
+          {activeStep === steps.length - 1 ? "Finish" : "Next"}
+        </Button>
+      </Box>
+    </div>
   );
 }

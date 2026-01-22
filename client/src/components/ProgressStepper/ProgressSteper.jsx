@@ -3,8 +3,6 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 
 const steps = [
   "Select Crypto Assets",
@@ -12,25 +10,7 @@ const steps = [
   "Select Your Desired Content",
 ];
 
-// TODO: Get the Back/Next buttons to be at the bottom of the page!
-export default function ProgressStepper({
-  activeStep,
-  setActiveStep,
-  onFinish,
-  canProceed,
-}) {
-  const handleNext = () => {
-    if (activeStep === steps.length - 1) {
-      onFinish();
-    } else {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    }
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
+export default function ProgressStepper({ activeStep }) {
   return (
     <Box sx={{ width: "60%", margin: "0 auto" }}>
       <Stepper activeStep={activeStep}>
@@ -58,31 +38,6 @@ export default function ProgressStepper({
           );
         })}
       </Stepper>
-      <React.Fragment>
-        <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-          <Button
-            color="inherit"
-            disabled={activeStep === 0}
-            onClick={handleBack}
-            sx={{ 
-              mr: 1,
-              '&.Mui-disabled': { color: 'gray' }
-            }}
-          >
-            Back
-          </Button>
-          <Box sx={{ flex: "1 1 auto" }} />
-          <Button 
-            onClick={handleNext} 
-            disabled={!canProceed()}
-            sx={{
-              '&.Mui-disabled': { color: 'gray' }
-            }}
-          >
-            {activeStep === steps.length - 1 ? "Finish" : "Next"}
-          </Button>
-        </Box>
-      </React.Fragment>
     </Box>
   );
 }

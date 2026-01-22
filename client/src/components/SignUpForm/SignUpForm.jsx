@@ -32,7 +32,6 @@ export default function SignUpForm({ onSignUp }) {
         },
       );
       if (response.ok) {
-        // After successful signup, automatically login
         const loginResult = await loginUser(email, password, setErrorLabel, setLoading);
         if (loginResult.success) {
           if (!loginResult.onboardingCompleted) {

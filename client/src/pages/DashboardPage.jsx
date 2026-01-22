@@ -6,6 +6,9 @@ import MarketNews from "../components/MarketNews/MarketNews";
 import Feedback from "../components/Feedback/Feedback";
 import { CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
@@ -13,55 +16,81 @@ export default function DashboardPage() {
   const [coinPrices, setCoinPrices] = useState();
   const [aiInsight, setAiInsight] = useState();
   const [meme, setMeme] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
   const token = sessionStorage.getItem("token");
 
-  useEffect(() => {
-    async function fetchDashboard() {
-      if (!isLoggedIn()) {
-        navigate("/");
-        return;
-      }
-      if (sessionStorage.getItem("onboardingCompleted") === "false") {
-        console.log("logged in ");
-        navigate("/user-preferences");
-        return;
-      }
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_SERVER}/dashboard`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-
-        if (response.ok) {
-          const {
-            newsArticles,
-            coinPrices: coinPricesFetched,
-            aiInsight: aiInsightFetched,
-            meme: memeFetched,
-          } = await response.json();
-          setMarketNews(newsArticles);
-          setCoinPrices(coinPricesFetched);
-          setAiInsight(aiInsightFetched);
-          setMeme(memeFetched);
-        }
-      } catch (err) {
-        console.log(err);
-      }
+  async function fetchDashboard() {
+    if (!isLoggedIn()) {
+      navigate("/");
+      return;
     }
+    if (sessionStorage.getItem("onboardingCompleted") === "false") {
+      console.log("logged in ");
+      navigate("/user-preferences");
+      return;
+    }
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER}/dashboard`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
+      if (response.ok) {
+        const {
+          newsArticles,
+          coinPrices: coinPricesFetched,
+          aiInsight: aiInsightFetched,
+          meme: memeFetched,
+        } = await response.json();
+        setMarketNews(newsArticles);
+        setCoinPrices(coinPricesFetched);
+        setAiInsight(aiInsightFetched);
+        setMeme(memeFetched);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setRefreshing(false);
+    }
+  }
+
+  useEffect(() => {
     fetchDashboard();
   }, []);
 
+  const handleRefresh = () => {
+    setRefreshing(true);
+    fetchDashboard();
+  };
+
   return (
     <>
-      {" "}
-      <h1>Wecome To Your Dashboard!</h1>
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        padding: '0 2rem',
+        marginBottom: '1rem'
+      }}>
+        <h1>Welcome To Your Dashboard!</h1>
+        <IconButton 
+          onClick={handleRefresh} 
+          disabled={refreshing}
+          sx={{ color: 'rgba(209, 209, 209, 0.87)' }}
+        >
+          {refreshing ? (
+            <CircularProgress size={24} sx={{ color: 'rgba(209, 209, 209, 0.87)' }} />
+          ) : (
+            <AutorenewIcon fontSize="large"/>
+          )}
+        </IconButton>
+      </div>
       <div className="dashboard">
         <section className="section section-1">
           <h2>Market News</h2>
