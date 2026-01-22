@@ -15,10 +15,10 @@ export default function TypeInvestorForm({ investorType, setInvestorType }) {
           value={investorType}
           onChange={(e) => setInvestorType(e.target.value)}
         >
-          <FormControlLabel 
-            value="HODLer" 
-            control={<Radio />} 
-            label="HODLer - Long-term holder, low risk strategy" 
+          <FormControlLabel
+            value="HODLer"
+            control={<Radio />}
+            label="HODLer - Long-term holder, low risk strategy"
           />
           <FormControlLabel
             value="NFT Collector"
