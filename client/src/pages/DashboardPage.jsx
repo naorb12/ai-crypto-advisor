@@ -38,7 +38,6 @@ export default function DashboardPage() {
       Authorization: `Bearer ${token}`,
     };
 
-    // Fetch all sections in parallel
     const fetchNews = fetch(`${import.meta.env.VITE_SERVER}/dashboard/news`, {
       headers,
     })
