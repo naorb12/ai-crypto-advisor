@@ -20,7 +20,6 @@ export async function generateAIInsight(userId) {
                     Don't give a line for each asset, make it flow naturally in the conversation.
                     Don't introduce the answer.`;
     return await getAIResponse("google/gemma-3-27b-it:free", prompt);
-    
   } catch (err) {
     console.log(err);
     return "Stay disciplined and let your strategy drive decisions, not short-term noise. Focus on understanding why these assets matter in your broader thesis, keep risk sized conservatively, and use today to refine signals, narratives, or patterns that actually align with your investing style—consistency beats clever moves.";
@@ -28,7 +27,7 @@ export async function generateAIInsight(userId) {
 }
 
 async function getAIResponse(model, prompt) {
-  const stream = await openrouter.chat.send({
+  const response = await openrouter.chat.send({
     model: model,
     messages: [
       {
@@ -36,18 +35,8 @@ async function getAIResponse(model, prompt) {
         content: prompt,
       },
     ],
-    maxTokens: 90,
-    stream: true,
+    stream: false,
   });
 
-  let result = "";
-
-  for await (const chunk of stream) {
-    const content = chunk.choices[0]?.delta?.content;
-    if (content) {
-      result += content;
-    }
-  }
-
-  return result.trim();
+  return response.choices[0].message.content.trim();
 }
