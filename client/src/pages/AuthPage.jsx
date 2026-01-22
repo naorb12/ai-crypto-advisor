@@ -17,12 +17,15 @@ export default function AuthPage() {
     }
   });
   return (
-    <div id="auth-page">
-      {!signUp ? (
-        <LoginForm onSignUp={setSignUp} />
-      ) : (
-        <SignUpForm onSignUp={setSignUp} />
-      )}
-    </div>
+    <>
+      <h1>AI Crypto Advisor</h1>
+      <div id="auth-page">
+        {!signUp ? (
+          <LoginForm onSignUp={setSignUp} />
+        ) : (
+          <SignUpForm onSignUp={setSignUp} />
+        )}
+      </div>
+    </>
   );
 }
