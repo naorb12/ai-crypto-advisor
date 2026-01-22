@@ -4,7 +4,7 @@ import {
   verifyUserPassword,
 } from "../services/auth.service.js";
 
-export async function signUp(req, res, next) {
+export async function signUp(req, res) {
   try {
     const { email, name, password } = req.body;
     if (!email || !name || !password) {
@@ -21,7 +21,7 @@ export async function signUp(req, res, next) {
   }
 }
 
-export async function logIn(req, res, next) {
+export async function logIn(req, res) {
   try {
     const { email, password } = req.body;
     if (!email || !password) {

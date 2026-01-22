@@ -1,6 +1,6 @@
 import { setFeedback } from "../services/feedback.service.js";
 
-export async function addFeedback(req, res, next) {
+export async function addFeedback(req, res) {
   try {
     const userId = req.user.id;
     const { section, feedbackType, contentSnapshot } = req.body;

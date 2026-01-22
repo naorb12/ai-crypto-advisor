@@ -3,7 +3,7 @@ import {
   getPreferencesFromDB,
 } from "../services/user-preferences.service.js";
 
-export async function getPreferences(req, res, next) {
+export async function getPreferences(req, res) {
   try {
     const userId = req.user.id;
     if (!userId) {
@@ -20,7 +20,7 @@ export async function getPreferences(req, res, next) {
   }
 }
 
-export async function setPreferences(req, res, next) {
+export async function setPreferences(req, res) {
   try {
     const userId = req.user.id;
     const { typeOfInvestor, assets, interests } = req.body;

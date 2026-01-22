@@ -30,32 +30,47 @@ export default function DashboardPage() {
       navigate("/user-preferences");
       return;
     }
-    try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER}/dashboard`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
 
-      if (response.ok) {
-        const {
-          newsArticles,
-          coinPrices: coinPricesFetched,
-          aiInsight: aiInsightFetched,
-          meme: memeFetched,
-        } = await response.json();
-        setMarketNews(newsArticles);
-        setCoinPrices(coinPricesFetched);
-        setAiInsight(aiInsightFetched);
-        setMeme(memeFetched);
-      }
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setRefreshing(false);
-    }
+    setRefreshing(true);
+
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+
+    // Fetch all sections in parallel
+    const fetchNews = fetch(`${import.meta.env.VITE_SERVER}/dashboard/news`, {
+      headers,
+    })
+      .then((r) => r.json())
+      .then((data) => setMarketNews(data.newsArticles))
+      .catch((err) => console.error("News error:", err));
+
+    const fetchPrices = fetch(
+      `${import.meta.env.VITE_SERVER}/dashboard/prices`,
+      { headers },
+    )
+      .then((r) => r.json())
+      .then((data) => setCoinPrices(data.coinPrices))
+      .catch((err) => console.error("Prices error:", err));
+
+    const fetchAI = fetch(
+      `${import.meta.env.VITE_SERVER}/dashboard/ai-insight`,
+      { headers },
+    )
+      .then((r) => r.json())
+      .then((data) => setAiInsight(data.aiInsight))
+      .catch((err) => console.error("AI error:", err));
+
+    const fetchMeme = fetch(`${import.meta.env.VITE_SERVER}/dashboard/meme`, {
+      headers,
+    })
+      .then((r) => r.json())
+      .then((data) => setMeme(data.meme))
+      .catch((err) => console.error("Meme error:", err));
+
+    await Promise.allSettled([fetchNews, fetchPrices, fetchAI, fetchMeme]);
+    setRefreshing(false);
   }
 
   useEffect(() => {
