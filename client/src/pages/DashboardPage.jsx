@@ -3,11 +3,12 @@ import { isLoggedIn } from "../utils/auth";
 import { useNavigate } from "react-router";
 import "./Dashboard.css";
 import MarketNews from "../components/MarketNews/MarketNews";
+import CoinPrices from "../components/CoinPrices/CoinPrices";
+import AIInsight from "../components/AIInsight/AIInsight";
+import Meme from "../components/Meme/Meme";
 import Feedback from "../components/Feedback/Feedback";
 import { CircularProgress } from "@mui/material";
-import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import RefreshIcon from "@mui/icons-material/Refresh";
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 
 export default function DashboardPage() {
@@ -91,6 +92,7 @@ export default function DashboardPage() {
           )}
         </IconButton>
       </div>
+      
       <div className="dashboard">
         <section className="section section-1">
           <h2>Market News</h2>
@@ -109,25 +111,7 @@ export default function DashboardPage() {
         <section className="section section-2">
           <h2>Coin Prices</h2>
           <div className="content">
-            {coinPrices ? (
-              Object.entries(coinPrices).map(([symbol, data]) => {
-                return (
-                  <div key={symbol} className="coin-price">
-                    <span className="coin-symbol">{symbol.toUpperCase()}</span>
-                    <span className="coin-value">${data.usd}</span>
-                  </div>
-                );
-              })
-            ) : (
-              <Box sx={{ gridColumn: '1 / -1', 
-                display: 'flex', 
-                justifyContent: 'center', 
-                alignItems: 'center',
-                width: '100%'
-              }}>
-                <CircularProgress />
-              </Box>
-            )}
+            <CoinPrices prices={coinPrices} />
           </div>
           {coinPrices && (
             <Feedback
@@ -140,31 +124,22 @@ export default function DashboardPage() {
 
         <section className="section section-3">
           <h2>AI Insight of The Day!</h2>
-          <div className="content">{aiInsight}</div>
-          {aiInsight ? (
+          <div className="content">
+            <AIInsight insight={aiInsight} />
+          </div>
+          {aiInsight && (
             <Feedback
               className="feedback"
               section={"ai"}
               snapshot={aiInsight}
             />
-          ) : <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <CircularProgress />
-              </Box>}
+          )}
         </section>
 
         <section className="section section-4">
           <h2>Fun Meme</h2>
           <div className="content">
-            {meme ? (
-              <>
-                <p>{meme.title}</p>
-                <img className="meme" src={meme.url} alt="crypto-meme" />
-              </>
-            ) : (
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <CircularProgress />
-              </Box>
-            )}
+            <Meme meme={meme} />
           </div>
           {meme && (
             <Feedback className="feedback" section={"meme"} snapshot={meme} />
