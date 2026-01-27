@@ -14,11 +14,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
+
 app.use("/auth", authRouter);
 app.use("/user-preferences", userPreferencesRouter);
 app.use("/dashboard", dashboardRouter);
 app.use("/feedback", feedbackRouter);
-
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
-});
